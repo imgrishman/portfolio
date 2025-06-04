@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grishman Paruchuru - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,1000 1000,0 1000,1000"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-content {
+            z-index: 2;
+            position: relative;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.3);
+            margin: 0 auto 2rem;
+            object-fit: cover;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-left: 2rem;
+            padding-right: 2rem;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #333;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-category h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Experience Section */
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-left: 2rem;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -3rem;
+            top: 2rem;
+            width: 12px;
+            height: 12px;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+
+        .experience-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .experience-company {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .experience-date {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1.5rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .experience-timeline {
+                padding-left: 1rem;
+            }
+
+            .experience-item {
+                margin-left: 1rem;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll animations */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="logo">Grishman Paruchuru</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content fade-in-up">
+            <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cropp.jpg-WTQbohFcLA9FNleNeb3M8pWN7G1CNW.jpeg" alt="Grishman Paruchuru" class="profile-img">
+            <h1>Grishman Paruchuru</h1>
+            <p>AI Researcher & Computer Science Graduate Student</p>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section" id="about">
+        <h2 class="scroll-animate">About Me</h2>
+        <div class="about-content scroll-animate">
+            <div class="about-text">
+                <p>I'm a passionate Computer Science graduate student at the University of North Texas with a perfect 4.0 GPA, specializing in AI research and responsible AI development. With experience in machine learning, deep learning, and computer vision, I'm dedicated to advancing AI technology while ensuring ethical and responsible implementation.</p>
+                
+                <p>My journey spans from research assistance in Large Language Models to practical applications in banking software development. I've published research papers, led technical presentations, and contributed to various AI and software development projects.</p>
+            </div>
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-number">4.0</div>
+                    <div>GPA (Masters)</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">3+</div>
+                    <div>Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5+</div>
+                    <div>Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1</div>
+                    <div>Published Paper</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section" id="skills">
+        <h2 class="scroll-animate">Skills & Expertise</h2>
+        <div class="skills-grid scroll-animate">
+            <div class="skill-category">
+                <h3><i class="fas fa-brain"></i> AI & Machine Learning</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Machine Learning</span>
+                    <span class="skill-tag">Deep Learning</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">NLP</span>
+                    <span class="skill-tag">TensorFlow</span>
+                    <span class="skill-tag">PyTorch</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C/C++</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">MATLAB</span>
+                    <span class="skill-tag">HTML/CSS</span>
+                    <span class="skill-tag">LaTeX</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-tools"></i> Tools & Frameworks</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">PySpark</span>
+                    <span class="skill-tag">Hadoop</span>
+                    <span class="skill-tag">Tableau</span>
+                    <span class="skill-tag">Git</span>
+                    <span class="skill-tag">MS Excel</span>
+                </div>
+            </div>
+            <div class="skill-category">
+                <h3><i class="fas fa-user"></i> Soft Skills</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Problem Solving</span>
+                    <span class="skill-tag">Leadership</span>
+                    <span class="skill-tag">Communication</span>
+                    <span class="skill-tag">Team Player</span>
+                    <span class="skill-tag">Critical Thinking</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="section" id="experience">
+        <h2 class="scroll-animate">Professional Experience</h2>
+        <div class="experience-timeline scroll-animate">
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Research Assistant</div>
+                        <div class="experience-company">University of North Texas - Responsible AI</div>
+                    </div>
+                    <div class="experience-date">Jan 2023 – Dec 2024</div>
+                </div>
+                <p>Making an influence on AI starting with Large Language Models like ChatGPT and assisting Dr. Feng Yune with latest work on AI research and responsible AI development.</p>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Apprentice (R&D Product)</div>
+                        <div class="experience-company">TEMENOS - Banking Software Company</div>
+                    </div>
+                    <div class="experience-date">Mar 2022 – Nov 2022</div>
+                </div>
+                <p>Interned in Research and Development Department, developed UI/UX for Spotlight in various environments. Worked with a team of 10 people and designed solutions for deployment issues and bugs in Temenos Infinity Spotlight.</p>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Teaching Assistant & Advisor</div>
+                        <div class="experience-company">Institute of Aeronautical Engineering (IARE)</div>
+                    </div>
+                    <div class="experience-date">Dec 2021 – Feb 2022</div>
+                </div>
+                <p>Trained Python Programming and Object-Oriented Concepts to 500 freshman students. Worked with a group of 5 teachers and the Dean of Career Development to monitor and engage with students.</p>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">Campus Ambassador</div>
+                        <div class="experience-company">International Model United Nations</div>
+                    </div>
+                    <div class="experience-date">Aug 2020 – Jun 2022</div>
+                </div>
+                <p>Worked on researching, public speaking, debating, and writing skills. Gained international exposure by interacting with delegates across the world.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="section" id="projects">
+        <h2 class="scroll-animate">Featured Projects</h2>
+        <div class="projects-grid scroll-animate">
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>OCR Technology Research</h3>
+                    <p>Published Paper - IJWMT Journal</p>
+                </div>
+                <div class="project-content">
+                    <p>Developed OCR technology using Python with PyTesseract, Moviepy, OpenCV2, and Speech-to-text. Created a software system to process videos and extract data faster into text files.</p>
+                    <div class="skill-tags" style="margin-top: 1rem;">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">OpenCV</span>
+                        <span class="skill-tag">PyTesseract</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Criminal Recognition System</h3>
+                    <p>IBM Workshop Project</p>
+                </div>
+                <div class="project-content">
+                    <p>Developed a website for criminal recognition using IBM Watson with IBM Cloud as database. Implemented similarity index testing to prove identity matches from image analysis.</p>
+                    <div class="skill-tags" style="margin-top: 1rem;">
+                        <span class="skill-tag">IBM Watson</span>
+                        <span class="skill-tag">Cloud Computing</span>
+                        <span class="skill-tag">Computer Vision</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <h3>Technical Paper Presentation</h3>
+                    <p>1st Place Winner</p>
+                </div>
+                <div class="project-content">
+                    <p>Led and won 1st place in technical paper presentation conducted by Innovation Center & Start-Up from IARE, demonstrating expertise in research and presentation skills.</p>
+                    <div class="skill-tags" style="margin-top: 1rem;">
+                        <span class="skill-tag">Research</span>
+                        <span class="skill-tag">Presentation</span>
+                        <span class="skill-tag">Innovation</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact" id="contact">
+        <h2 class="scroll-animate">Get In Touch</h2>
+        <div class="contact-content scroll-animate">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <h4>Email</h4>
+                        <p>grishmanbiz@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div>
+                        <h4>Phone</h4>
+                        <p>+1 940-395-7905</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div>
+                        <h4>Location</h4>
+                        <p>Texas, USA</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div>
+                        <h4>Education</h4>
+                        <p>University of North Texas</p>
+                    </div>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h3 style="margin-bottom: 1rem; color: #333;">Let's Connect!</h3>
+                <p style="font-size: 1.1rem; margin-bottom: 2rem; color: #666;">I'm always interested in discussing AI research, technology opportunities, and innovative projects.</p>
+                <a href="mailto:grishmanbiz@gmail.com" class="cta-button" style="color: #333; border-color: #333;">Send Message</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="social-links">
+            <a href="mailto:grishmanbiz@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="#" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+        <p>&copy; 2024 Grishman Paruchuru. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-animate').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive effects
+        document.querySelectorAll('.skill-category, .project-card, .experience-item').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
